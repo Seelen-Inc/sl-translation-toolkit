@@ -9,7 +9,7 @@ if (!newVersion) {
 }
 
 denoJson.version = newVersion;
-await Deno.writeTextFile("deno.json", JSON.stringify(denoJson, null, 2) + '\n');
+await Deno.writeTextFile("deno.json", JSON.stringify(denoJson, null, 2) + "\n");
 
 console.log(`Version updated to ${newVersion}`);
 
