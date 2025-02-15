@@ -1,0 +1,15 @@
+{
+  "message1": "this value will be translated",
+  "message2": "sometimes",
+  "message3": "other times",
+  "message4": {
+    "message4.1": "nested message"
+  },
+  "message5": {
+    "message5.1": {
+      "message5.1.1": {
+        "message5.1.1.1": "deeply nested message"
+      }
+    }
+  }
+}
