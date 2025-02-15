@@ -47,7 +47,7 @@ jobs:
         run: deno publish --allow-dirty
 
       - name: Build NPM package
-        run: deno task build:npm
+        run: deno task build
 
       - name: Publish to NPM
         env:

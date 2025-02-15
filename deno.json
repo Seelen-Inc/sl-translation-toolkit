@@ -3,7 +3,9 @@
   "description": "Seelen Translation Toolkit",
   "version": "1.0.0",
   "license": "Apache-2.0",
-  "tasks": {},
+  "tasks": {
+    "build": "deno run -A ./scripts/build.ts"
+  },
   "imports": {
     "@deno/dnt": "jsr:@deno/dnt@^0.41.3"
   },
