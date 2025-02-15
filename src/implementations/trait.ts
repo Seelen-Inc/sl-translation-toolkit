@@ -33,7 +33,7 @@ export abstract class FileTranslator<T extends UnspecifiedTranslator> {
     target: string,
   ) {
     console.info(
-      `  - translating ${tasks} texts to '${target}' with a gap of ${this.gap}ms (${
+      `  - translating ${tasks.length} texts to '${target}' with a gap of ${this.gap}ms (${
         this.translator.name(target)
       })`,
     );

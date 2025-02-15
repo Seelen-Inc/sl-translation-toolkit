@@ -24,13 +24,21 @@ export class GoogleTranslator extends Translator<
     target: SupportedSourceLangCodesByGoogle,
     input: string,
   ): Promise<string> {
-    const res = await GoogleTranslatorApi.translate(input, {
+    const trimmed = input.trim();
+    if (trimmed.length <= 1) {
+      // avoid perform an API call for single simbols
+      return input;
+    }
+    const initialSpaces = input.match(/^\s+/)?.[0] || "";
+    const finalSpaces = input.match(/\s+$/)?.[0] || "";
+    const res = await GoogleTranslatorApi.translate(trimmed, {
       from: this.source,
       to: target,
       forceTo: true,
       forceBatch: false,
       autoCorrect: false,
     });
-    return res.text;
+    // manually mantain the format
+    return `${initialSpaces}${res.text}${finalSpaces}`;
   }
 }

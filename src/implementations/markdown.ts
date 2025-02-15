@@ -31,11 +31,6 @@ export class MarkdownTranslator<
     mut_tasks: Array<() => Promise<void>>,
   ) {
     for (const child of mut_ast.children) {
-      // avoid tranlate code block for now
-      if (child.type === "code") {
-        continue;
-      }
-
       if (child.type == "text") {
         mut_tasks.push(async () => {
           child.value = await translator.translate_to(target, child.value);
@@ -65,6 +60,7 @@ export class MarkdownTranslator<
       tasks,
     );
     await this.performTasks(tasks, target);
-    return remark().stringify(mut_ast);
+    // the &#x20; present on tables could be an issue of the library and should be reported
+    return remark().stringify(mut_ast).replaceAll("&#x20;", " ");
   }
 }
