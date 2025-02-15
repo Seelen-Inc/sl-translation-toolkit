@@ -1,7 +1,7 @@
 import type { Translator } from "../translators/trait.ts";
 import { deepIterateTexts, invokeWithGaps, totalTexts } from "../utils/mod.ts";
 import { FileTranslator } from "./trait.ts";
-import rfdc from "npm:rfdc";
+import rfdc from "npm:rfdc@1.4.1";
 
 const cloneDeep = rfdc();
 
