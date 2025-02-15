@@ -11,7 +11,6 @@ export class DeeplTranslator extends Translator<
   SupportedSourceLangCodesByDeepl,
   SupportedTargetLangCodesByDeepl
 > {
-  name = "DeepL";
   private __inner: DeeplTranslatorApi.Translator;
 
   static isSupported(code: string): code is SupportedTargetLangCodesByDeepl {
@@ -31,11 +30,14 @@ export class DeeplTranslator extends Translator<
     this.__inner = new DeeplTranslatorApi.Translator(apiKey, options);
   }
 
+  name(_target?: SupportedTargetLangCodesByDeepl): string {
+    return "DeepL";
+  }
+
   async translate_to(
     target: DeeplTranslatorApi.TargetLanguageCode,
     input: string,
   ): Promise<string> {
-    console.info(`  translating to ${target} using ${this.name}`);
     const res = await this.__inner.translateText(input, this.source, target);
     return res.text;
   }

@@ -1,5 +1,6 @@
 export abstract class Translator<Source extends string, Target extends string> {
-  abstract get name(): string;
+  // target is used to print the used API on translators that uses multiple translations APIs
+  abstract name(target?: Target): string;
   source: Source;
 
   constructor({ source }: { source: Source }) {

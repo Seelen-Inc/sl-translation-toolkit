@@ -22,10 +22,13 @@
     "jsr:@ts-morph/common@0.24": "0.24.0",
     "npm:@types/node@*": "22.5.4",
     "npm:deepl-node@*": "1.16.0",
+    "npm:deepl-node@1.16.0": "1.16.0",
     "npm:google-translate-api-x@*": "10.7.2",
+    "npm:google-translate-api-x@10.7.2": "10.7.2",
     "npm:js-mock@*": "2.0.0",
     "npm:js-yaml@*": "4.1.0",
-    "npm:rfdc@*": "1.4.1"
+    "npm:rfdc@*": "1.4.1",
+    "npm:rfdc@1.4.1": "1.4.1"
   },
   "jsr": {
     "@david/code-block-writer@13.0.3": {

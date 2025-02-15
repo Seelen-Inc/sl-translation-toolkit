@@ -2,33 +2,18 @@ export function totalTexts(v: unknown): number {
   if (!v || typeof v !== "object") {
     return 0;
   }
-
   let count = 0;
-  deepIterateTexts(v, (_key, value) => {
-    count += value.length;
-  });
-  return count;
-}
-
-export function deepIterateTexts(
-  obj: unknown,
-  // deno-lint-ignore no-explicit-any
-  callback: (key: PropertyKey, value: string, parent: any) => void,
-): void {
-  if (!obj || typeof obj !== "object") {
-    return;
-  }
-
-  for (const [key, value] of Object.entries(obj)) {
+  for (const value of Object.values(v)) {
     switch (typeof value) {
       case "string":
-        callback(key, value, obj);
+        count++;
         break;
       case "object":
-        deepIterateTexts(value, callback);
+        count += totalTexts(value);
         break;
     }
   }
+  return count;
 }
 
 export function asyncSleep(ms: number): Promise<void> {
@@ -41,7 +26,7 @@ export async function invokeWithGaps<R>(
 ): Promise<Array<R>> {
   const results: Array<R> = [];
   for (const task of tasks) {
-    task();
+    results.push(task());
     await asyncSleep(gap);
   }
   return results;

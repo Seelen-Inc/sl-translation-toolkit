@@ -11,5 +11,14 @@
         "message5.1.1.1": "deeply nested message"
       }
     }
-  }
+  },
+  "not_strings_are_skipped": 1234,
+  "message6": [
+    {
+      "message6.1": "array message 1"
+    },
+    {
+      "message6.2": "array message 2"
+    }
+  ]
 }
