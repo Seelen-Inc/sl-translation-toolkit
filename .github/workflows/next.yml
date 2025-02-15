@@ -34,10 +34,6 @@ jobs:
             denoJson.version = nightlyVersion;
             fs.writeFileSync('deno.json', JSON.stringify(denoJson, null, 2));
 
-            let cargoTomlContent = fs.readFileSync('Cargo.toml', 'utf-8');
-            cargoTomlContent = cargoTomlContent.replace(/^version\s*=\s*".*"/m, `version = "${nightlyVersion}"`);
-            fs.writeFileSync('Cargo.toml', cargoTomlContent);
-
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
