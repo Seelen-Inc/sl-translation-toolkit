@@ -24,7 +24,6 @@ export class ObjectTranslator<
   }
 
   async translate_to(target: Target): Promise<object> {
-    console.info(`  translating to ${target}`);
     const tasks: Array<() => Promise<void>> = [];
 
     const newObj = cloneDeep(this.obj);
@@ -41,7 +40,7 @@ export class ObjectTranslator<
 
   async translate(targets: Target[]): Promise<Record<Target, object>> {
     console.info(
-      `Starting translation from ${this.translator.source} using ${this.translator.name} (total: ${this.amount()})`,
+      `Starting translation from ${this.translator.source} (total: ${this.amount()})`,
     );
     const result = {} as Record<Target, object>;
     for (const target of targets) {

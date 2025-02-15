@@ -19,12 +19,13 @@ export class GoogleTranslator extends Translator<
   }
 
   async translate_to(
-    to: SupportedSourceLangCodesByGoogle,
+    target: SupportedSourceLangCodesByGoogle,
     input: string,
   ): Promise<string> {
+    console.info(`  translating to ${target} using ${this.name}`);
     const res = await GoogleTranslatorApi.translate(input, {
       from: this.source,
-      to: to,
+      to: target,
       forceTo: true,
       forceBatch: false,
       autoCorrect: false,

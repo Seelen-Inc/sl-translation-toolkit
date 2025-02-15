@@ -32,10 +32,11 @@ export class DeeplTranslator extends Translator<
   }
 
   async translate_to(
-    to: DeeplTranslatorApi.TargetLanguageCode,
+    target: DeeplTranslatorApi.TargetLanguageCode,
     input: string,
   ): Promise<string> {
-    const res = await this.__inner.translateText(input, this.source, to);
+    console.info(`  translating to ${target} using ${this.name}`);
+    const res = await this.__inner.translateText(input, this.source, target);
     return res.text;
   }
 }

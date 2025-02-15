@@ -1,4 +1,4 @@
-import { TargetLanguageCode } from "npm:deepl-node";
+import { LanguageCode } from "npm:deepl-node";
 
 const DeeplSupportedTargetLanguages = [
   "ar",
@@ -29,6 +29,8 @@ const DeeplSupportedTargetLanguages = [
   "tr",
   "uk",
   "zh",
+  "en",
+  "pt",
   "en-GB",
   "en-US",
   "pt-BR",
@@ -36,8 +38,8 @@ const DeeplSupportedTargetLanguages = [
 ] as const;
 
 type OwnList = (typeof DeeplSupportedTargetLanguages)[number];
-type areAllDeeplTargetLanguagesOnTheList = [TargetLanguageCode] extends
-  [OwnList] ? [OwnList] extends [TargetLanguageCode] ? true
+type areAllDeeplTargetLanguagesOnTheList = [LanguageCode] extends
+  [OwnList] ? [OwnList] extends [LanguageCode] ? true
   : false
   : false;
 
