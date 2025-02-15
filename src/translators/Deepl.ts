@@ -1,4 +1,4 @@
-import { isSupported } from "./Deepl_utils.ts";
+import { isSupported } from "./DeeplUtils.ts";
 import { Translator } from "./trait.ts";
 import * as DeeplTranslatorApi from "npm:deepl-node";
 

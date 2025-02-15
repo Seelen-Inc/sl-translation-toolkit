@@ -5,7 +5,8 @@
     "npm:deepl-node@*": "1.16.0",
     "npm:google-translate-api-x@*": "10.7.2",
     "npm:js-mock@*": "2.0.0",
-    "npm:js-yaml@*": "4.1.0"
+    "npm:js-yaml@*": "4.1.0",
+    "npm:rfdc@*": "1.4.1"
   },
   "npm": {
     "@types/node@22.13.4": {
@@ -97,6 +98,9 @@
     },
     "proxy-from-env@1.1.0": {
       "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
+    },
+    "rfdc@1.4.1": {
+      "integrity": "sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA=="
     },
     "undici-types@6.19.8": {
       "integrity": "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
