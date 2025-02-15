@@ -1,4 +1,4 @@
-import type { LanguageCode } from "npm:deepl-node@1.16.0";
+import type { TargetLanguageCode } from "npm:deepl-node@1.16.0";
 
 const DeeplSupportedTargetLanguages = [
   "ar",
@@ -29,8 +29,6 @@ const DeeplSupportedTargetLanguages = [
   "tr",
   "uk",
   "zh",
-  "en",
-  "pt",
   "en-GB",
   "en-US",
   "pt-BR",
@@ -38,15 +36,21 @@ const DeeplSupportedTargetLanguages = [
 ] as const;
 
 type OwnList = (typeof DeeplSupportedTargetLanguages)[number];
-type areAllDeeplTargetLanguagesOnTheList = [LanguageCode] extends [OwnList]
-  ? [OwnList] extends [LanguageCode] ? true
+type areAllDeeplTargetLanguagesOnTheList = [TargetLanguageCode] extends
+  [OwnList] ? [OwnList] extends [TargetLanguageCode] ? true
   : false
   : false;
 
 const _assert: areAllDeeplTargetLanguagesOnTheList = true;
 
+const BackwardMapping: Record<string, TargetLanguageCode> = {
+  en: "en-US",
+  pt: "pt-BR",
+};
+
 export function isSupported(code: string): boolean {
-  return DeeplSupportedTargetLanguages.some((lang) =>
-    lang.toLowerCase() === code.toLowerCase()
+  const mappedCode = BackwardMapping[code].toLowerCase() ?? code.toLowerCase();
+  return DeeplSupportedTargetLanguages.some(
+    (lang) => lang.toLowerCase() === mappedCode, // Deepl API accept case-insensitive language codes.
   );
 }
