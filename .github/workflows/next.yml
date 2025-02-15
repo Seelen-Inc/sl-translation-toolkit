@@ -48,7 +48,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish to JSR
-        run: deno publish
+        run: deno publish --allow-dirty
 
       - name: Build NPM package
         run: deno task build:npm
