@@ -1,7 +1,18 @@
 {
+  "name": "@seelen/translation-toolkit",
+  "description": "Seelen Translation Toolkit",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
   "tasks": {},
-  "imports": {},
-  "exports": {
-    ".": "./src/lib.ts"
+  "imports": {
+    "@deno/dnt": "jsr:@deno/dnt@^0.41.3"
+  },
+  "exports": "./src/lib.ts",
+  "publish": {
+    "exclude": [
+      ".github",
+      "scripts",
+      "mocks"
+    ]
   }
 }

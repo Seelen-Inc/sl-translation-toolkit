@@ -1,6 +1,6 @@
 import { isSupported } from "./DeeplUtils.ts";
 import { Translator } from "./trait.ts";
-import * as DeeplTranslatorApi from "npm:deepl-node";
+import * as DeeplTranslatorApi from "npm:deepl-node@1.16.0";
 
 export type SupportedSourceLangCodesByDeepl =
   DeeplTranslatorApi.SourceLanguageCode;

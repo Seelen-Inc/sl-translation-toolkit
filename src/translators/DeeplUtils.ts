@@ -1,4 +1,4 @@
-import { LanguageCode } from "npm:deepl-node";
+import type { LanguageCode } from "npm:deepl-node@1.16.0";
 
 const DeeplSupportedTargetLanguages = [
   "ar",
