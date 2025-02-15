@@ -1,5 +1,4 @@
 import type { Translator } from "../translators/trait.ts";
-import { invokeWithGaps, totalTexts } from "../utils/mod.ts";
 import { FileTranslator } from "./trait.ts";
 
 export class ObjectTranslator<
@@ -9,13 +8,10 @@ export class ObjectTranslator<
   Impl_Translator extends Translator<Source, Target>,
 > extends FileTranslator<Impl_Translator> {
   private obj: T;
-  private translator: Impl_Translator;
-  private performed: number = 0;
 
   constructor(object: T, translator: Impl_Translator) {
-    super();
+    super(translator);
     this.obj = object;
-    this.translator = translator;
   }
 
   amount(): number {
@@ -75,15 +71,10 @@ export class ObjectTranslator<
    * @returns the translated object
    */
   async translate_to(target: Target, cached?: T): Promise<T> {
-    if (this.performed === 0) {
-      console.info(
-        `Starting translation from '${this.translator.source}' (total: ${this.amount()})`,
-      );
-    }
+    this.printInitialInfoAsNeeded();
     // deno-lint-ignore no-explicit-any
     const translating: any = cached || (Array.isArray(this.obj) ? [] : {});
     const tasks: Array<() => Promise<void>> = [];
-
     ObjectTranslator.create_translation_tasks(
       this.obj,
       target,
@@ -91,17 +82,25 @@ export class ObjectTranslator<
       this.translator,
       tasks,
     );
-
-    // gap is important to avoid Too many requests error
-    const gap = 200;
-    console.info(
-      `  - translating ${tasks.length} texts to '${target}' with a gap of ${gap}ms (${
-        this.translator.name(target)
-      })`,
-    );
-    const promises = await invokeWithGaps(tasks, gap);
-    await Promise.all(promises);
-    this.performed += tasks.length;
+    await this.performTasks(tasks, target);
     return translating;
   }
+}
+
+function totalTexts(v: unknown): number {
+  if (!v || typeof v !== "object") {
+    return 0;
+  }
+  let count = 0;
+  for (const value of Object.values(v)) {
+    switch (typeof value) {
+      case "string":
+        count++;
+        break;
+      case "object":
+        count += totalTexts(value);
+        break;
+    }
+  }
+  return count;
 }
