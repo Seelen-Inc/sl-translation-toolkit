@@ -38,8 +38,8 @@ const DeeplSupportedTargetLanguages = [
 ] as const;
 
 type OwnList = (typeof DeeplSupportedTargetLanguages)[number];
-type areAllDeeplTargetLanguagesOnTheList = [LanguageCode] extends
-  [OwnList] ? [OwnList] extends [LanguageCode] ? true
+type areAllDeeplTargetLanguagesOnTheList = [LanguageCode] extends [OwnList]
+  ? [OwnList] extends [LanguageCode] ? true
   : false
   : false;
 

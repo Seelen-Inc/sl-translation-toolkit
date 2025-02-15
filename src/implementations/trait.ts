@@ -1,4 +1,4 @@
-import { UnspecifiedTranslator } from "../translators/trait.ts";
+import type { UnspecifiedTranslator } from "../translators/trait.ts";
 
 export abstract class FileTranslator<T extends UnspecifiedTranslator> {
   translated: number = 0;

@@ -12,6 +12,7 @@ export function totalTexts(v: unknown): number {
 
 export function deepIterateTexts(
   obj: unknown,
+  // deno-lint-ignore no-explicit-any
   callback: (key: PropertyKey, value: string, parent: any) => void,
 ): void {
   if (!obj || typeof obj !== "object") {

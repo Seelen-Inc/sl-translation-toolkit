@@ -1,43 +1,43 @@
 /// <reference lib="deno.ns" />
 
-import { build, type BuildOptions, emptyDir } from '@deno/dnt';
+import { build, type BuildOptions, emptyDir } from "@deno/dnt";
 
-import denoJson from '../deno.json' with { type: 'json' };
+import denoJson from "../deno.json" with { type: "json" };
 
 const { name, description, version, license } = denoJson;
-const packageJson: BuildOptions['package'] = {
+const packageJson: BuildOptions["package"] = {
   name,
   description,
   version,
   license,
   repository: {
-    type: 'git',
-    url: 'git+https://github.com/Seelen-Inc/sl-translation-toolkit.git',
+    type: "git",
+    url: "git+https://github.com/Seelen-Inc/sl-translation-toolkit.git",
   },
   bugs: {
-    url: 'https://github.com/Seelen-Inc/sl-translation-toolkit/issues',
+    url: "https://github.com/Seelen-Inc/sl-translation-toolkit/issues",
   },
 };
 
-await emptyDir('./npm');
+await emptyDir("./npm");
 
 await build({
-  typeCheck: 'both',
+  typeCheck: "both",
   compilerOptions: {
-    lib: ['DOM', 'DOM.Iterable', 'ESNext'],
-    target: 'ES2023',
+    lib: ["DOM", "DOM.Iterable", "ESNext"],
+    target: "ES2023",
   },
   test: false,
   entryPoints: [{
-    name: '.',
-    path: './src/lib.ts',
+    name: ".",
+    path: "./src/lib.ts",
   }],
-  outDir: './npm',
+  outDir: "./npm",
   shims: {},
-  importMap: 'deno.json',
+  importMap: "deno.json",
   package: packageJson,
   postBuild(): void {
-    Deno.copyFileSync('license.md', 'npm/license.md');
-    Deno.copyFileSync('readme.md', 'npm/readme.md');
+    Deno.copyFileSync("license.md", "npm/license.md");
+    Deno.copyFileSync("readme.md", "npm/readme.md");
   },
 });

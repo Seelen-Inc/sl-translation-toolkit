@@ -1,5 +1,11 @@
-import { DeeplTranslator, SupportedSourceLangCodesByDeepl } from "./Deepl.ts";
-import { GoogleTranslator, SupportedSourceLangCodesByGoogle } from "./Google.ts";
+import {
+  DeeplTranslator,
+  type SupportedSourceLangCodesByDeepl,
+} from "./Deepl.ts";
+import {
+  GoogleTranslator,
+  type SupportedSourceLangCodesByGoogle,
+} from "./Google.ts";
 import { Translator } from "./trait.ts";
 
 /**
@@ -10,10 +16,17 @@ export class AutoTranslator extends Translator<string, string> {
   private deepl: DeeplTranslator;
   private google: GoogleTranslator;
 
-  constructor({ source, deeplApiKey }: { deeplApiKey: string; source: string }) {
+  constructor(
+    { source, deeplApiKey }: { deeplApiKey: string; source: string },
+  ) {
     super({ source });
-    this.deepl = new DeeplTranslator({ source: source as SupportedSourceLangCodesByDeepl, apiKey: deeplApiKey });
-    this.google =  new GoogleTranslator({ source: source as SupportedSourceLangCodesByGoogle });
+    this.deepl = new DeeplTranslator({
+      source: source as SupportedSourceLangCodesByDeepl,
+      apiKey: deeplApiKey,
+    });
+    this.google = new GoogleTranslator({
+      source: source as SupportedSourceLangCodesByGoogle,
+    });
   }
 
   override translate_to(to: string, input: string): Promise<string> {
