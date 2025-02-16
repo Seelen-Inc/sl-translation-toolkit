@@ -1,4 +1,4 @@
-import { isSupported } from "./DeeplUtils.ts";
+import { BackwardMapping, isSupported } from "./DeeplUtils.ts";
 import { Translator } from "./trait.ts";
 import * as DeeplTranslatorApi from "npm:deepl-node@1.16.0";
 
@@ -38,7 +38,18 @@ export class DeeplTranslator extends Translator<
     target: DeeplTranslatorApi.TargetLanguageCode,
     input: string,
   ): Promise<string> {
-    const res = await this.__inner.translateText(input, this.source, target);
+    if (BackwardMapping[target]) {
+      console.info(
+        `    Deprecated target '${target}' was mapped to '${
+          BackwardMapping[target]
+        }'`,
+      );
+    }
+    const res = await this.__inner.translateText(
+      input,
+      this.source,
+      BackwardMapping[target] || target,
+    );
     return res.text;
   }
 }

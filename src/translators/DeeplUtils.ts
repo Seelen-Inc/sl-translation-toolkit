@@ -43,13 +43,13 @@ type areAllDeeplTargetLanguagesOnTheList = [TargetLanguageCode] extends
 
 const _assert: areAllDeeplTargetLanguagesOnTheList = true;
 
-const BackwardMapping: Record<string, TargetLanguageCode> = {
+export const BackwardMapping: Record<string, TargetLanguageCode> = {
   en: "en-US",
   pt: "pt-BR",
 };
 
 export function isSupported(code: string): boolean {
-  const mappedCode = BackwardMapping[code]?.toLowerCase() ?? code.toLowerCase();
+  const mappedCode = (BackwardMapping[code] || code).toLowerCase();
   return DeeplSupportedTargetLanguages.some(
     (lang) => lang.toLowerCase() === mappedCode, // Deepl API accept case-insensitive language codes.
   );
