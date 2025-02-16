@@ -49,7 +49,7 @@ const BackwardMapping: Record<string, TargetLanguageCode> = {
 };
 
 export function isSupported(code: string): boolean {
-  const mappedCode = BackwardMapping[code].toLowerCase() ?? code.toLowerCase();
+  const mappedCode = BackwardMapping[code]?.toLowerCase() ?? code.toLowerCase();
   return DeeplSupportedTargetLanguages.some(
     (lang) => lang.toLowerCase() === mappedCode, // Deepl API accept case-insensitive language codes.
   );
