@@ -39,6 +39,14 @@ export class DeeplTranslator extends Translator<
     target: DeeplTranslatorApi.TargetLanguageCode,
     input: string,
   ): Promise<string> {
+    const trimmed = input.trim();
+    if (trimmed.length <= 1) {
+      // avoid perform an API call for single simbols
+      return input;
+    }
+    const initialSpaces = input.match(/^\s+/)?.[0] || "";
+    const finalSpaces = input.match(/\s+$/)?.[0] || "";
+
     if (BackwardMapping[target] && !this.alreadyWarned[target]) {
       console.warn(
         `    Deprecated target '${target}' was mapped to '${
@@ -47,11 +55,13 @@ export class DeeplTranslator extends Translator<
       );
       this.alreadyWarned[target] = true;
     }
+
     const res = await this.__inner.translateText(
       input,
       this.source,
       BackwardMapping[target] || target,
     );
-    return res.text;
+    // manually mantain the format
+    return `${initialSpaces}${res.text}${finalSpaces}`;
   }
 }
