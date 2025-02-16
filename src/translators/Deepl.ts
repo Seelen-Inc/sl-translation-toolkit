@@ -12,6 +12,7 @@ export class DeeplTranslator extends Translator<
   SupportedTargetLangCodesByDeepl
 > {
   private __inner: DeeplTranslatorApi.Translator;
+  private alreadyWarned: Record<string, boolean> = {};
 
   static isSupported(code: string): code is SupportedTargetLangCodesByDeepl {
     return isSupported(code);
@@ -38,12 +39,13 @@ export class DeeplTranslator extends Translator<
     target: DeeplTranslatorApi.TargetLanguageCode,
     input: string,
   ): Promise<string> {
-    if (BackwardMapping[target]) {
-      console.info(
+    if (BackwardMapping[target] && !this.alreadyWarned[target]) {
+      console.warn(
         `    Deprecated target '${target}' was mapped to '${
           BackwardMapping[target]
         }'`,
       );
+      this.alreadyWarned[target] = true;
     }
     const res = await this.__inner.translateText(
       input,
