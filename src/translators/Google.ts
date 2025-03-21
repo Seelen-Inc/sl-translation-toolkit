@@ -32,7 +32,7 @@ export class GoogleTranslator extends Translator<
     const initialSpaces = input.match(/^\s+/)?.[0] || "";
     const finalSpaces = input.match(/\s+$/)?.[0] || "";
 
-    try {
+    const performTranslate = async () => {
       const res = await GoogleTranslatorApi.translate(trimmed, {
         from: this.source,
         to: target,
@@ -40,11 +40,18 @@ export class GoogleTranslator extends Translator<
         forceBatch: false,
         autoCorrect: false,
       });
-
-      // manually mantain the format
       return `${initialSpaces}${res.text}${finalSpaces}`;
-    } catch (e) {
-      throw new Error(`Error translating "${input}" to ${target}: ${e}`);
+    };
+
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        return await performTranslate();
+      } catch (e) {
+        throw new Error(`Error translating "${input}" to ${target}: ${e}`);
+      }
     }
+
+    // this will never be reached
+    return "";
   }
 }
