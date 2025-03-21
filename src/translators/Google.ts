@@ -31,14 +31,20 @@ export class GoogleTranslator extends Translator<
     }
     const initialSpaces = input.match(/^\s+/)?.[0] || "";
     const finalSpaces = input.match(/\s+$/)?.[0] || "";
-    const res = await GoogleTranslatorApi.translate(trimmed, {
-      from: this.source,
-      to: target,
-      forceTo: true,
-      forceBatch: false,
-      autoCorrect: false,
-    });
-    // manually mantain the format
-    return `${initialSpaces}${res.text}${finalSpaces}`;
+
+    try {
+      const res = await GoogleTranslatorApi.translate(trimmed, {
+        from: this.source,
+        to: target,
+        forceTo: true,
+        forceBatch: false,
+        autoCorrect: false,
+      });
+
+      // manually mantain the format
+      return `${initialSpaces}${res.text}${finalSpaces}`;
+    } catch (e) {
+      throw new Error(`Error translating "${input}" to ${target}: ${e}`);
+    }
   }
 }
