@@ -6,9 +6,14 @@ import { ObjectTranslator } from "./object.ts";
 export class YamlTranslator<
   Source extends string,
   Target extends string,
-  Impl_Translator extends Translator<Source, Target>
+  Impl_Translator extends Translator<Source, Target>,
 > extends FileTranslator<Impl_Translator> {
-  private object_translator: ObjectTranslator<object, Source, Target, Impl_Translator>;
+  private object_translator: ObjectTranslator<
+    object,
+    Source,
+    Target,
+    Impl_Translator
+  >;
 
   constructor(yaml: string, translator: Impl_Translator) {
     super(translator);
