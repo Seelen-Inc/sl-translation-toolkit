@@ -1,3 +1,4 @@
+import { asyncSleep } from "../utils/mod.ts";
 import { Translator } from "./trait.ts";
 import * as GoogleTranslatorApi from "npm:google-translate-api-x@10.7.2";
 
@@ -47,7 +48,10 @@ export class GoogleTranslator extends Translator<
       try {
         return await performTranslate();
       } catch (e) {
-        throw new Error(`Error translating "${input}" to ${target}: ${e}`);
+        if (attempt == 4) {
+          throw new Error(`Error translating "${input}" to ${target}: ${e}`);
+        }
+        await asyncSleep(250);
       }
     }
 
