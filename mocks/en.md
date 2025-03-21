@@ -5,7 +5,10 @@
 ### **Paragraphs and Lists**
 
 This is my markdown content, **bold** and _italics_ and
-[links](https://seelen.io).
+[links should be skipped](https://seelen.io/about/other#markdown).
+
+Images:
+![image alt should be translated but url should be skipped](https://via.placeholder.com/150)
 
 1. First item
 2. Second item
