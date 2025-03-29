@@ -1,7 +1,8 @@
 import type { Translator } from "../translators/trait.ts";
 import { FileTranslator } from "./trait.ts";
 
-import type { Parent, Root } from "npm:@types/mdast@4.0.4";
+// @deno-types="npm:@types/mdast@4.0.4"
+import type { Parent, Root } from "npm:mdast@3.0.0";
 import { remark } from "npm:remark@15.0.1";
 import remarkFrontmatter from "npm:remark-frontmatter@5.0.0";
 import remarkGfm from "npm:remark-gfm@4.0.1";
