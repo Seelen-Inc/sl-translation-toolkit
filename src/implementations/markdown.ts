@@ -1,10 +1,12 @@
 import type { Translator } from "../translators/trait.ts";
 import { FileTranslator } from "./trait.ts";
 
-// @deno-types="npm:@types/mdast@3.0.15"
-import type { Parent, Root } from "npm:mdast@3.0.0";
-import { remark } from "npm:remark@14.0.2";
+import type { Parent, Root } from "npm:@types/mdast@4.0.4";
+import { remark } from "npm:remark@15.0.1";
+import remarkFrontmatter from "npm:remark-frontmatter@5.0.0";
+import remarkGfm from "npm:remark-gfm@4.0.1";
 import rfdc from "npm:rfdc@1.4.1";
+import { YamlTranslator } from "./yaml.ts";
 
 const clone = rfdc({ proto: true });
 
@@ -13,11 +15,12 @@ export class MarkdownTranslator<
   Target extends string,
   Impl_Translator extends Translator<Source, Target>,
 > extends FileTranslator<Impl_Translator> {
+  private processor = remark().use(remarkFrontmatter, ["yaml"]).use(remarkGfm);
   private markdown: Root;
 
   constructor(markdown: string, translator: Impl_Translator) {
     super(translator);
-    this.markdown = remark().parse(markdown);
+    this.markdown = this.processor.parse(markdown);
   }
 
   override amount(): number {
@@ -34,6 +37,14 @@ export class MarkdownTranslator<
       if (child.type == "text") {
         mut_tasks.push(async () => {
           child.value = await translator.translate_to(target, child.value);
+        });
+        continue;
+      }
+
+      if (child.type == "yaml") {
+        mut_tasks.push(async () => {
+          const yamlTranslator = new YamlTranslator(child.value, translator);
+          child.value = await yamlTranslator.translate_to(target);
         });
         continue;
       }
@@ -61,6 +72,6 @@ export class MarkdownTranslator<
     );
     await this.performTasks(tasks, target);
     // the &#x20; present on tables could be an issue of the library and should be reported
-    return remark().stringify(mut_ast).replaceAll("&#x20;", " ");
+    return this.processor.stringify(mut_ast).replaceAll("&#x20;", " ");
   }
 }

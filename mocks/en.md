@@ -5,7 +5,8 @@
 ### **Paragraphs and Lists**
 
 This is my markdown content, **bold** and _italics_ and
-[links should be skipped](https://seelen.io/about/other#markdown).
+[links should be skipped](https://seelen.io/about/other#markdown). Also plain
+links should be skipped https://seelen.io/faq/markdown
 
 Images:
 ![image alt should be translated but url should be skipped](https://via.placeholder.com/150)

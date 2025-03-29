@@ -16,12 +16,12 @@ export abstract class FileTranslator<T extends UnspecifiedTranslator> {
   abstract amount(): number;
 
   protected printInitialInfoAsNeeded() {
-    if (this.performed > 0) {
-      return;
+    if (this.translator.firstTranslation) {
+      console.info(
+        `Starting translation from '${this.translator.source}' (total: ${this.amount()})`,
+      );
+      this.translator.firstTranslation = false;
     }
-    console.info(
-      `Starting translation from '${this.translator.source}' (total: ${this.amount()})`,
-    );
   }
 
   /**
