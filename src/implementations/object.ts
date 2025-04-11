@@ -5,7 +5,7 @@ export class ObjectTranslator<
   T extends object,
   Source extends string,
   Target extends string,
-  Impl_Translator extends Translator<Source, Target>
+  Impl_Translator extends Translator<Source, Target>,
 > extends FileTranslator<Impl_Translator> {
   private obj: T;
 
@@ -25,7 +25,7 @@ export class ObjectTranslator<
     // deno-lint-ignore no-explicit-any
     mut_obj: any,
     translator: Translator<string, string>,
-    mut_tasks: Array<() => Promise<void>>
+    mut_tasks: Array<() => Promise<void>>,
   ) {
     for (const [key, value] of Object.entries(sourceObj)) {
       if (!value || key.startsWith("_") || key.startsWith("$")) {
@@ -49,7 +49,7 @@ export class ObjectTranslator<
             target,
             mut_obj[key],
             translator,
-            mut_tasks
+            mut_tasks,
           );
           break;
         }
@@ -81,7 +81,7 @@ export class ObjectTranslator<
       target,
       translating,
       this.translator,
-      tasks
+      tasks,
     );
     await this.performTasks(tasks, target);
     return translating;
