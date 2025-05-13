@@ -22,6 +22,7 @@
     "jsr:@ts-morph/common@0.24": "0.24.0",
     "npm:@types/mdast@*": "4.0.4",
     "npm:@types/mdast@3.0.15": "3.0.15",
+    "npm:@types/mdast@4.0.4": "4.0.4",
     "npm:@types/node@*": "22.5.4",
     "npm:deepl-node@*": "1.16.0",
     "npm:deepl-node@1.16.0": "1.16.0",
